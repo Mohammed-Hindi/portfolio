@@ -84,6 +84,7 @@ let touchStartY = 0;
 let scrollCooldown = false;
 
 let reducedMotion = false;
+let lastFrameTime = 0;
 
 let soundEnabled = false;
 let backgroundMusic = null;
@@ -175,14 +176,34 @@ function createCamera() {
    ========================================================= */
 
 function createRenderer() {
-  const canvas = document.getElementById("three-canvas");
+  let canvas = document.getElementById("three-canvas");
+  let rendererError;
+  const contextProfiles = [
+    { powerPreference: "default", antialias: quality.antialias },
+    { powerPreference: "low-power", antialias: false },
+    { powerPreference: "high-performance", antialias: false },
+  ];
 
-  renderer = new THREE.WebGLRenderer({
-    canvas,
-    antialias: quality.antialias,
-    alpha: true,
-    powerPreference: "high-performance",
-  });
+  for (const [index, profile] of contextProfiles.entries()) {
+    try {
+      renderer = new THREE.WebGLRenderer({
+        canvas,
+        alpha: true,
+        failIfMajorPerformanceCaveat: false,
+        ...profile,
+      });
+      break;
+    } catch (error) {
+      rendererError = error;
+      if (index < contextProfiles.length - 1) {
+        const replacementCanvas = canvas.cloneNode(false);
+        canvas.replaceWith(replacementCanvas);
+        canvas = replacementCanvas;
+      }
+    }
+  }
+
+  if (!renderer) throw rendererError;
 
   renderer.setPixelRatio(quality.pixelRatio);
 
@@ -237,27 +258,27 @@ function getQualitySettings() {
 
   if (mobile) {
     return {
-      pixelRatio: Math.min(window.devicePixelRatio, 1.4),
-      particles: 350,
-      segments: 16,
+      pixelRatio: Math.min(window.devicePixelRatio, 1.2),
+      particles: 260,
+      segments: 14,
       antialias: false,
     };
   }
 
   if (tablet) {
     return {
-      pixelRatio: Math.min(window.devicePixelRatio, 1.7),
-      particles: 700,
-      segments: 20,
-      antialias: true,
+      pixelRatio: Math.min(window.devicePixelRatio, 1.4),
+      particles: 500,
+      segments: 18,
+      antialias: false,
     };
   }
 
   return {
-    pixelRatio: Math.min(window.devicePixelRatio, 2),
-    particles: 1100,
-    segments: 24,
-    antialias: true,
+    pixelRatio: Math.min(window.devicePixelRatio, 1.6),
+    particles: 800,
+    segments: 20,
+    antialias: false,
   };
 }
 
@@ -1803,8 +1824,13 @@ function setupReducedMotion() {
    ANIMATION
    ========================================================= */
 
-function animate() {
+function animate(frameTime = 0) {
   try {
+    if (frameTime - lastFrameTime < 1000 / 60) {
+      requestAnimationFrame(animate);
+      return;
+    }
+    lastFrameTime = frameTime;
 
   const elapsed = clock.getElapsedTime();
 
@@ -1887,9 +1913,7 @@ window.addEventListener("resize", () => {
 
   renderer.setSize(window.innerWidth, window.innerHeight);
 
-  renderer.setPixelRatio(
-    Math.min(window.devicePixelRatio, window.innerWidth < 768 ? 1.4 : 2),
-  );
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, quality.pixelRatio));
 });
 
 /* =========================================================

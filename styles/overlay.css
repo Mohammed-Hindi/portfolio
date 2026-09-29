@@ -1284,4 +1284,6 @@ body.portfolio-static-mode .overlay-section {
     transform: none;
     pointer-events: auto;
     justify-content: center;
+    content-visibility: auto;
+    contain-intrinsic-size: 100svh;
 }

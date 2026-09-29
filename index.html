@@ -622,8 +622,6 @@
           if (failedModule || appRuntimeError) showStaticPortfolio();
         }, true);
 
-        window.addEventListener("unhandledrejection", showStaticPortfolio);
-
         window.setTimeout(() => {
           if (!window.__portfolioBootComplete && !window.__portfolioModuleLoaded) {
             showStaticPortfolio();
