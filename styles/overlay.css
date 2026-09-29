@@ -1243,3 +1243,45 @@
 .reduced-motion .scroll-arrow::after {
     animation: none;
 }
+
+/* Keep the portfolio usable when the browser blocks WebGL. The 3D scene
+   remains the default; this layout is enabled only after renderer failure. */
+body.portfolio-static-mode {
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+body.portfolio-static-mode #three-canvas {
+    display: none;
+}
+
+body.portfolio-static-mode #navbar {
+    position: sticky;
+    top: 0;
+}
+
+body.portfolio-static-mode #overlay-container {
+    position: relative;
+    inset: auto;
+    height: auto;
+    overflow: visible;
+    pointer-events: auto;
+}
+
+body.portfolio-static-mode .overlay-section {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: 5.5rem 1.25rem 4.5rem;
+    overflow: visible;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    justify-content: center;
+}

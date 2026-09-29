@@ -1,6 +1,8 @@
 import * as THREE from "three";
 import { skills, projects } from "./data.js";
 
+window.__portfolioModuleLoaded = true;
+
 /* =========================================================
    CONFIG
    ========================================================= */
@@ -91,41 +93,54 @@ let backgroundMusic = null;
    ========================================================= */
 
 function init() {
-  clock = new THREE.Clock();
-
-  createScene();
-  createCamera();
-  createRenderer();
-  createWorld();
-
-  setupLights();
-  createBackground();
-
-  createHeroWorld();
-  createAboutWorld();
-  createSkillsWorld();
-  createProjectsWorld();
-  createContactWorld();
-
-  populateSkills();
-  populateProjects();
-
-  setupNavigation();
-  setupCTAButtons();
-  setupCanvasInteraction();
-  setupTouchNavigation();
-  setupKeyboardNavigation();
-
-  setupModal();
   setupSound();
   setupReducedMotion();
-  setupIntroTour();
-
+  setupModal();
+  populateSkills();
+  populateProjects();
+  setupNavigation();
+  setupCTAButtons();
+  setupKeyboardNavigation();
   updateNavigation(0);
 
-  hideLoader();
+  try {
+    clock = new THREE.Clock();
 
-  animate();
+    createScene();
+    createCamera();
+    createRenderer();
+    createWorld();
+
+    setupLights();
+    createBackground();
+
+    createHeroWorld();
+    createAboutWorld();
+    createSkillsWorld();
+    createProjectsWorld();
+    createContactWorld();
+
+    setupCanvasInteraction();
+    setupTouchNavigation();
+    setupIntroTour();
+
+    animate();
+  } catch (error) {
+    activateStaticPortfolio(error);
+  }
+
+  window.__portfolioBootComplete = true;
+  hideLoader();
+}
+
+function activateStaticPortfolio(error) {
+  document.body.classList.add("portfolio-static-mode");
+  renderer?.dispose();
+  renderer = null;
+
+  if (error) {
+    console.warn("WebGL is unavailable. Showing the scrollable portfolio instead.", error);
+  }
 }
 
 /* =========================================================
@@ -1116,7 +1131,16 @@ function goToSection(section, immediate = false, fromIntroTour = false) {
 
   targetSection = section;
 
-  if (immediate) {
+  if (document.body.classList.contains("portfolio-static-mode")) {
+    updateNavigation(section);
+    document.querySelectorAll(".overlay-section")[section]?.scrollIntoView({
+      behavior: reducedMotion ? "auto" : "smooth",
+      block: "start",
+    });
+    return;
+  }
+
+  if (immediate && camera) {
     camera.position.set(
       CAMERA_ZONES[section].x,
       CAMERA_ZONES[section].y,
@@ -1780,7 +1804,7 @@ function setupReducedMotion() {
    ========================================================= */
 
 function animate() {
-  requestAnimationFrame(animate);
+  try {
 
   const elapsed = clock.getElapsedTime();
 
@@ -1841,7 +1865,11 @@ function animate() {
     backgroundWorld.rotation.y = elapsed * 0.004;
   }
 
-  renderer.render(scene, camera);
+    renderer.render(scene, camera);
+    requestAnimationFrame(animate);
+  } catch (error) {
+    activateStaticPortfolio(error);
+  }
 }
 
 /* =========================================================

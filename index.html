@@ -606,6 +606,52 @@
       }
     </script>
 
+    <script>
+      (() => {
+        const showStaticPortfolio = () => {
+          if (window.__portfolioBootComplete) return;
+          document.body.classList.add("portfolio-static-mode");
+          document.getElementById("loader")?.classList.add("hidden");
+        };
+
+        window.addEventListener("error", (event) => {
+          const failedModule =
+            event.target instanceof HTMLScriptElement &&
+            event.target.type === "module";
+          const appRuntimeError = event.filename?.includes("/js/main.js");
+          if (failedModule || appRuntimeError) showStaticPortfolio();
+        }, true);
+
+        window.addEventListener("unhandledrejection", showStaticPortfolio);
+
+        window.setTimeout(() => {
+          if (!window.__portfolioBootComplete && !window.__portfolioModuleLoaded) {
+            showStaticPortfolio();
+          }
+        }, 15000);
+
+        document.addEventListener("click", (event) => {
+          if (!document.body.classList.contains("portfolio-static-mode")) return;
+          const control = event.target.closest?.("[data-section]");
+          if (!control) return;
+
+          const section = document.querySelectorAll(".overlay-section")[Number(control.dataset.section)];
+          if (!section) return;
+
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          const sectionIndex = Number(control.dataset.section);
+          document.querySelectorAll(".nav-link, .indicator").forEach((item) => {
+            item.classList.toggle("active", Number(item.dataset.section) === sectionIndex);
+          });
+          section.scrollIntoView({
+            behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+            block: "start",
+          });
+        }, true);
+      })();
+    </script>
+
     <!-- Application -->
     <script type="module" src="js/data.js"></script>
     <script type="module" src="js/main.js"></script>

@@ -4,6 +4,8 @@ A responsive, interactive 3D portfolio for **Mohammed El-Hindi (محمد اله�
 
 The experience combines a Three.js space scene with accessible HTML sections for an introduction, background, technical skills, selected projects, and contact links.
 
+If a browser blocks WebGL, the portfolio switches to a normal scrollable layout so its content and project interactions remain available. Browsers with WebGL continue to use the full 3D experience.
+
 ## Live site
 
 The intended GitHub Pages address is:
