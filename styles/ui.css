@@ -1,0 +1,727 @@
+/* ============================================
+   UI SYSTEM
+   Cinematic / Architectural Portfolio
+   ============================================ */
+
+/* ============================================
+   Navbar
+   ============================================ */
+
+#navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 1rem var(--space-2xl);
+
+    background: rgba(5, 6, 8, 0.48);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+
+    transition:
+        background var(--transition),
+        border-color var(--transition),
+        padding var(--transition);
+}
+
+.nav-logo {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: clamp(36px, 4vw, 48px);
+    aspect-ratio: 1;
+    border-radius: 17px;
+    transition: transform var(--transition), filter var(--transition);
+}
+
+.nav-logo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.nav-logo:hover {
+    transform: translateY(-1px);
+    filter: drop-shadow(0 0 10px var(--accent-glow));
+}
+
+.nav-logo:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.nav-link {
+    position: relative;
+
+    padding: 0.5rem 0.75rem;
+
+    color: var(--text-muted);
+
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 500;
+
+    letter-spacing: 0.04em;
+
+    border-radius: var(--radius-sm);
+
+    transition:
+        color var(--transition),
+        background var(--transition);
+}
+
+.nav-link::after {
+    content: '';
+
+    position: absolute;
+    left: 50%;
+    bottom: 2px;
+
+    width: 0;
+    height: 1px;
+
+    background: var(--accent);
+
+    transform: translateX(-50%);
+
+    transition: width var(--transition);
+}
+
+.nav-link:hover {
+    color: var(--text-primary);
+}
+
+.nav-link:hover::after {
+    width: 18px;
+}
+
+.nav-link.active {
+    color: var(--accent-light);
+    background: rgba(90, 169, 255, 0.045);
+}
+
+.nav-link.active::after {
+    width: 18px;
+}
+
+/* ============================================
+   Navbar Controls
+   ============================================ */
+
+.nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.nav-control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 34px;
+    min-height: 34px;
+    padding: 0.4rem 0.55rem;
+
+    color: var(--text-muted);
+
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: var(--radius-sm);
+
+    font-family: var(--font-display);
+    font-size: 0.65rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        color var(--transition),
+        border-color var(--transition),
+        background var(--transition),
+        box-shadow var(--transition);
+}
+
+.nav-control:hover {
+    color: var(--accent-light);
+
+    background: rgba(90, 169, 255, 0.045);
+    border-color: rgba(90, 169, 255, 0.35);
+}
+
+.nav-control.active {
+    color: var(--accent-light);
+
+    background: rgba(90, 169, 255, 0.07);
+    border-color: rgba(90, 169, 255, 0.45);
+
+    box-shadow: 0 0 18px rgba(90, 169, 255, 0.08);
+}
+
+/* Existing reduced-motion control */
+
+#reduced-motion-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+    padding: 0;
+
+    color: var(--text-muted);
+
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+
+    cursor: pointer;
+
+    transition:
+        color var(--transition),
+        background var(--transition),
+        border-color var(--transition);
+}
+
+#reduced-motion-toggle:hover {
+    color: var(--accent-light);
+    background: rgba(90, 169, 255, 0.04);
+    border-color: var(--border);
+}
+
+#reduced-motion-toggle.active {
+    color: var(--accent);
+
+    background: rgba(90, 169, 255, 0.07);
+    border-color: rgba(90, 169, 255, 0.35);
+}
+
+/* ============================================
+   Section Indicators
+   ============================================ */
+
+#section-indicators {
+    position: fixed;
+    right: 1.8rem;
+    top: 50%;
+
+    z-index: 100;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+
+    transform: translateY(-50%);
+}
+
+.indicator {
+    position: relative;
+
+    width: 7px;
+    height: 7px;
+
+    padding: 0;
+
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 50%;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    transition:
+        width var(--transition),
+        height var(--transition),
+        background var(--transition),
+        border-color var(--transition),
+        box-shadow var(--transition);
+}
+
+.indicator:hover {
+    border-color: var(--accent-light);
+    transform: scale(1.35);
+}
+
+.indicator.active {
+    width: 9px;
+    height: 9px;
+
+    border-color: var(--accent);
+    background: var(--accent);
+
+    box-shadow:
+        0 0 0 4px rgba(90, 169, 255, 0.08),
+        0 0 15px var(--accent-glow);
+}
+
+.indicator::before {
+    content: attr(title);
+
+    position: absolute;
+    right: calc(100% + 14px);
+    top: 50%;
+
+    padding: 0.3rem 0.5rem;
+
+    color: var(--text-muted);
+
+    background: rgba(5, 6, 8, 0.88);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+
+    font-family: var(--font-display);
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+
+    white-space: nowrap;
+
+    opacity: 0;
+
+    transform: translateY(-50%) translateX(4px);
+
+    pointer-events: none;
+
+    transition:
+        opacity var(--transition),
+        transform var(--transition);
+}
+
+.indicator:hover::before {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+}
+
+/* ============================================
+   Project Modal
+   ============================================ */
+
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 1.5rem;
+
+    background: rgba(0, 0, 0, 0.78);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 0.45s ease,
+        visibility 0.45s ease;
+}
+
+.modal-backdrop.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    position: relative;
+
+    width: min(760px, 100%);
+    max-height: min(82vh, 760px);
+
+    overflow-y: auto;
+
+    padding: clamp(1.6rem, 4vw, 2.8rem);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(17, 21, 28, 0.96),
+            rgba(7, 9, 12, 0.97)
+        );
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-xl);
+
+    box-shadow:
+        0 40px 120px rgba(0, 0, 0, 0.65),
+        0 0 50px rgba(90, 169, 255, 0.06);
+
+    transform: translateY(24px) scale(0.97);
+
+    transition:
+        transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.modal-backdrop.visible .modal-content {
+    transform: translateY(0) scale(1);
+}
+
+/* Thin architectural line */
+
+.modal-content::before {
+    content: '';
+
+    position: absolute;
+    top: 0;
+    left: 2rem;
+    right: 2rem;
+
+    height: 1px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(90, 169, 255, 0.65),
+        transparent
+    );
+}
+
+/* ============================================
+   Modal Close
+   ============================================ */
+
+.modal-close {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+
+    color: var(--text-muted);
+
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+
+    font-size: 1.15rem;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        color var(--transition),
+        border-color var(--transition),
+        background var(--transition),
+        transform var(--transition);
+}
+
+.modal-close:hover {
+    color: var(--text-primary);
+
+    border-color: var(--accent);
+    background: rgba(90, 169, 255, 0.06);
+
+    transform: rotate(90deg);
+}
+
+/* ============================================
+   Modal Typography
+   ============================================ */
+
+.modal-category {
+    display: block;
+
+    margin-bottom: 0.55rem;
+
+    color: var(--accent);
+
+    font-family: var(--font-display);
+    font-size: 0.62rem;
+    font-weight: 600;
+
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.modal-content h2 {
+    margin: 0 3rem 0.9rem 0;
+
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 650;
+
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+
+    color: var(--text-primary);
+}
+
+.modal-content p {
+    margin-bottom: var(--space-lg);
+
+    color: var(--text-secondary);
+
+    font-size: var(--fs-sm);
+    line-height: 1.8;
+}
+
+/* ============================================
+   Modal Case Study
+   ============================================ */
+
+.modal-case-study {
+    display: grid;
+    gap: var(--space-md);
+
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-xl);
+}
+
+.case-study-block {
+    position: relative;
+
+    padding: var(--space-lg);
+
+    background: rgba(255, 255, 255, 0.018);
+
+    border: 1px solid rgba(255, 255, 255, 0.065);
+    border-radius: var(--radius-md);
+}
+
+.case-study-block h3 {
+    margin-bottom: 0.55rem;
+
+    color: var(--accent-light);
+
+    font-family: var(--font-display);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+
+    letter-spacing: 0.03em;
+}
+
+.case-study-block p {
+    margin: 0;
+
+    color: var(--text-secondary);
+    font-size: var(--fs-sm);
+    line-height: 1.75;
+}
+
+/* ============================================
+   Modal Stack
+   ============================================ */
+
+.modal-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+
+    margin-bottom: var(--space-xl);
+}
+
+.modal-stack .stack-badge {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 0.32rem 0.62rem;
+
+    color: var(--accent-light);
+
+    background: rgba(90, 169, 255, 0.045);
+    border: 1px solid rgba(90, 169, 255, 0.16);
+    border-radius: var(--radius-sm);
+
+    font-size: 0.62rem;
+}
+
+/* ============================================
+   Modal Links
+   ============================================ */
+
+.modal-links {
+    display: flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+
+    padding-top: var(--space-lg);
+
+    border-top: 1px solid var(--border);
+}
+
+.modal-links .btn {
+    flex: 1;
+    min-width: 150px;
+    justify-content: center;
+}
+
+/* ============================================
+   Modal Scrollbar
+   ============================================ */
+
+.modal-content {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(90, 169, 255, 0.3) transparent;
+}
+
+.modal-content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: rgba(90, 169, 255, 0.25);
+    border-radius: 10px;
+}
+
+/* ============================================
+   Focus Accessibility
+   ============================================ */
+
+.nav-link:focus-visible,
+.nav-control:focus-visible,
+.indicator:focus-visible,
+.modal-close:focus-visible,
+.btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+/* ============================================
+   Responsive UI
+   ============================================ */
+
+@media (max-width: 900px) {
+    #navbar {
+        padding-left: var(--space-lg);
+        padding-right: var(--space-lg);
+    }
+
+    .nav-links {
+        gap: 0;
+    }
+
+    .nav-link {
+        padding-left: 0.55rem;
+        padding-right: 0.55rem;
+    }
+}
+
+@media (max-width: 768px) {
+    #navbar {
+        padding: calc(0.75rem + env(safe-area-inset-top, 0px)) max(var(--space-lg), env(safe-area-inset-right, 0px)) 0.75rem max(var(--space-lg), env(safe-area-inset-left, 0px));
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    #section-indicators {
+        top: auto;
+        right: 50%;
+        bottom: calc(0.65rem + env(safe-area-inset-bottom, 0px));
+        flex-direction: row;
+        gap: 0.75rem;
+        padding: 0.55rem 0.75rem;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 999px;
+        background: rgba(5, 6, 8, 0.72);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        transform: translateX(50%);
+    }
+
+    .indicator::before {
+        display: none;
+    }
+
+    .modal-backdrop {
+        padding: 1rem;
+    }
+
+    .modal-content {
+        max-height: min(86vh, calc(100dvh - 2rem));
+        padding: 1.5rem;
+    }
+
+    .modal-content::before {
+        left: 1.5rem;
+        right: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #navbar {
+        padding: calc(0.7rem + env(safe-area-inset-top, 0px)) max(0.9rem, env(safe-area-inset-right, 0px)) 0.7rem max(0.9rem, env(safe-area-inset-left, 0px));
+    }
+
+    .nav-controls {
+        gap: 0.25rem;
+    }
+
+    .nav-control,
+    #reduced-motion-toggle {
+        min-width: 32px;
+        width: 32px;
+        height: 32px;
+    }
+
+    .modal-content {
+        border-radius: var(--radius-lg);
+        padding: 1.25rem;
+    }
+
+    .modal-close {
+        top: 0.8rem;
+        right: 0.8rem;
+    }
+
+    .modal-content h2 {
+        padding-right: 2.5rem;
+    }
+
+    .case-study-block {
+        padding: 1rem;
+    }
+
+    .modal-links {
+        flex-direction: column;
+    }
+
+    .modal-links .btn {
+        width: 100%;
+    }
+}
+
+/* ============================================
+   Reduced Motion
+   ============================================ */
+
+.reduced-motion #navbar,
+.reduced-motion .nav-link,
+.reduced-motion .nav-control,
+.reduced-motion .indicator,
+.reduced-motion .modal-backdrop,
+.reduced-motion .modal-content,
+.reduced-motion .modal-close {
+    transition: none;
+}

@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#050608" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="canonical" href="https://mohammed-hindi.github.io/portfolio/" />
+
+    <title>Mohammed El-Hindi | Full-Stack Developer in Gaza</title>
+
+    <meta
+      name="description"
+      content="Mohammed El-Hindi (محمد الهندي) is a Gaza-based Full-Stack Developer building web applications with Laravel, Vue.js, REST APIs, and MySQL."
+    />
+    <meta name="author" content="Mohammed El-Hindi" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large" />
+
+    <meta
+      property="og:title"
+      content="Mohammed El-Hindi | Full-Stack Developer in Gaza"
+    />
+    <meta
+      property="og:description"
+      content="Portfolio of Mohammed El-Hindi (محمد الهندي), a Gaza-based Full-Stack Developer focused on Laravel, Vue.js, REST APIs, and MySQL."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Mohammed El-Hindi Portfolio" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://mohammed-hindi.github.io/portfolio/" />
+    <meta property="og:image" content="https://mohammed-hindi.github.io/portfolio/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Mohammed El-Hindi — Full-Stack Developer portfolio" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Mohammed El-Hindi | Full-Stack Developer in Gaza" />
+    <meta name="twitter:description" content="Full-Stack Developer building web applications with Laravel, Vue.js, REST APIs, and MySQL." />
+    <meta name="twitter:image" content="https://mohammed-hindi.github.io/portfolio/og-image.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://mohammed-hindi.github.io/portfolio/#website",
+            "url": "https://mohammed-hindi.github.io/portfolio/",
+            "name": "Mohammed El-Hindi Portfolio",
+            "inLanguage": "en",
+            "publisher": { "@id": "https://mohammed-hindi.github.io/portfolio/#person" }
+          },
+          {
+            "@type": "Person",
+            "@id": "https://mohammed-hindi.github.io/portfolio/#person",
+            "url": "https://mohammed-hindi.github.io/portfolio/",
+            "mainEntityOfPage": { "@id": "https://mohammed-hindi.github.io/portfolio/#website" },
+            "name": "Mohammed El-Hindi",
+            "alternateName": ["محمد الهندي", "Mohammed Hindi", "Mohammed Elhindi"],
+            "jobTitle": "Full-Stack Developer",
+            "description": "Gaza-based Full-Stack Developer focused on Laravel, Vue.js, REST APIs, and MySQL.",
+            "email": "moh5408415@gmail.com",
+            "knowsAbout": ["Full-Stack Development", "Laravel", "Vue.js", "REST APIs", "MySQL", "PHP", "JavaScript"],
+            "alumniOf": {
+              "@type": "CollegeOrUniversity",
+              "name": "University College of Applied Sciences (UCAS)"
+            },
+            "sameAs": [
+              "https://github.com/Mohammed-Hindi",
+              "https://www.instagram.com/mohammed.h.hindi/"
+            ]
+          }
+        ]
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/index.css" />
+    <link rel="stylesheet" href="styles/overlay.css" />
+    <link rel="stylesheet" href="styles/ui.css" />
+  </head>
+
+  <body>
+    <!-- ============================================
+       Loading Screen
+       ============================================ -->
+
+    <audio id="background-music" src="./assets/ambient-chill-technology.mp3" loop preload="auto" playsinline aria-hidden="true" style="display: none"></audio>
+
+    <div id="loader">
+      <div class="loader-content">
+        <div class="loader-spinner"></div>
+
+        <p class="loader-text">Mohammed El-Hindi</p>
+
+        <span class="loader-subtext">Initializing digital space...</span>
+
+      </div>
+    </div>
+
+    <!-- ============================================
+       3D World
+       ============================================ -->
+
+    <canvas id="three-canvas"></canvas>
+
+    <!-- ============================================
+       Navigation
+       ============================================ -->
+
+    <nav id="navbar">
+      <a href="#" class="nav-logo" aria-label="Mohammed El-Hindi — Home">
+        <img src="./favicon.svg" alt="" width="48" height="48" />
+      </a>
+
+      <div class="nav-links">
+        <button class="nav-link active" data-section="0">Home</button>
+
+        <button class="nav-link" data-section="1">About</button>
+
+        <button class="nav-link" data-section="2">Skills</button>
+
+        <button class="nav-link" data-section="3">Projects</button>
+
+        <button class="nav-link" data-section="4">Contact</button>
+      </div>
+
+      <!-- Interface Controls -->
+
+      <div class="nav-controls">
+        <!-- Reduced Motion -->
+        <button
+          id="reduced-motion-toggle"
+          class="nav-control"
+          type="button"
+          aria-label="Toggle reduced motion"
+          title="Toggle reduced motion"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <path d="M8 12h8" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- ============================================
+       Section Indicators
+       ============================================ -->
+
+    <div id="section-indicators">
+      <button
+        class="indicator active"
+        data-section="0"
+        title="Home"
+        aria-label="Go to Home"
+      ></button>
+
+      <button
+        class="indicator"
+        data-section="1"
+        title="About"
+        aria-label="Go to About"
+      ></button>
+
+      <button
+        class="indicator"
+        data-section="2"
+        title="Skills"
+        aria-label="Go to Skills"
+      ></button>
+
+      <button
+        class="indicator"
+        data-section="3"
+        title="Projects"
+        aria-label="Go to Projects"
+      ></button>
+
+      <button
+        class="indicator"
+        data-section="4"
+        title="Contact"
+        aria-label="Go to Contact"
+      ></button>
+    </div>
+
+    <!-- ============================================
+       HTML Overlay Layer
+       ============================================ -->
+
+    <main id="overlay-container">
+      <!-- ==========================================
+         HOME
+         ========================================== -->
+
+      <section id="hero-overlay" class="overlay-section active">
+        <div class="hero-content">
+          <p class="hero-greeting">Hello, I'm</p>
+
+          <h1 class="hero-name">
+            <span class="hero-name-line">Mohammed</span>
+            <span class="hero-name-line accent">El-Hindi</span>
+          </h1>
+
+          <p class="hero-role">
+            Full-Stack Developer
+            <span class="hero-divider">/</span>
+            Laravel &amp; Vue.js
+          </p>
+
+          <p class="hero-tagline">
+            I build practical web applications with strong backend architecture,
+            clean APIs, and thoughtful user experiences.
+          </p>
+
+          <div class="hero-cta">
+            <button class="btn btn-primary" data-section="3" type="button">
+              Explore My Work
+              <span>→</span>
+            </button>
+
+            <button class="btn btn-outline" data-section="1" type="button">
+              My Journey
+            </button>
+          </div>
+        </div>
+
+        <div class="scroll-indicator">
+          <span> Scroll to explore </span>
+
+          <div class="scroll-arrow"></div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+         ABOUT
+         ========================================== -->
+
+      <section id="about-overlay" class="overlay-section">
+        <div class="section-label">The Journey</div>
+
+        <div class="about-card glass-card">
+          <div class="about-intro">
+            <span class="about-kicker"> Student → Graduate → Developer </span>
+
+            <h2>Building from where I am.</h2>
+
+            <p>
+              I'm Mohammed El-Hindi (<span lang="ar" dir="rtl">محمد الهندي</span>),
+              a Full-Stack Developer from Gaza focused on building useful web
+              applications with Laravel and Vue.js.
+            </p>
+
+            <p>
+              My work combines backend development, RESTful APIs, relational
+              databases, authentication systems, and modern frontend interfaces.
+            </p>
+
+            <p>
+              I recently completed my Diploma in Web Design &amp; Development at
+              UCAS, with my graduation project becoming the foundation for my
+              first large-scale academic platform.
+            </p>
+          </div>
+
+          <div class="about-stats">
+            <div class="stat">
+              <span class="stat-number"> 2026 </span>
+
+              <span class="stat-label"> UCAS Graduate </span>
+            </div>
+
+            <div class="stat">
+              <span class="stat-number"> 3 </span>
+
+              <span class="stat-label"> Featured Projects </span>
+            </div>
+
+            <div class="stat">
+              <span class="stat-number"> Laravel </span>
+
+              <span class="stat-label"> Backend Focus </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+         SKILLS
+         ========================================== -->
+
+      <section id="skills-overlay" class="overlay-section">
+        <div class="section-label">Technical Stack</div>
+
+        <div class="skills-container">
+          <!-- Frontend -->
+
+          <div class="skill-category glass-card">
+            <h3>
+              <span class="category-icon"> ◇ </span>
+
+              Frontend
+            </h3>
+
+            <div class="skill-tags" id="frontend-skills"></div>
+          </div>
+
+          <!-- Backend -->
+
+          <div class="skill-category glass-card">
+            <h3>
+              <span class="category-icon"> ◆ </span>
+
+              Backend
+            </h3>
+
+            <div class="skill-tags" id="backend-skills"></div>
+          </div>
+
+          <!-- Tools -->
+
+          <div class="skill-category glass-card">
+            <h3>
+              <span class="category-icon"> + </span>
+
+              Tools &amp; Workflow
+            </h3>
+
+            <div class="skill-tags" id="tools-skills"></div>
+          </div>
+        </div>
+
+        <p class="skills-hint">
+          Explore the environment to discover the technologies behind my work.
+        </p>
+      </section>
+
+      <!-- ==========================================
+         PROJECTS
+         ========================================== -->
+
+      <section id="projects-overlay" class="overlay-section">
+        <div class="section-label">Selected Work</div>
+
+        <div class="projects-intro">
+          <h2>Systems I've built.</h2>
+
+          <p>
+            Explore the projects, architecture, and decisions behind my work.
+          </p>
+        </div>
+
+        <div class="projects-grid" id="projects-grid"></div>
+
+        <p class="projects-hint">Select a project to enter its case study.</p>
+      </section>
+
+      <!-- ==========================================
+         CONTACT
+         ========================================== -->
+
+      <section id="contact-overlay" class="overlay-section">
+        <div class="section-label">Let's Connect</div>
+
+        <div class="contact-card glass-card">
+          <span class="contact-kicker"> Have an idea? </span>
+
+          <h2>Let's build something useful.</h2>
+
+          <p>
+            I'm open to development opportunities, technical collaborations, and
+            projects where I can contribute through backend and full-stack
+            development.
+          </p>
+
+          <div class="contact-links">
+            <!-- GitHub -->
+
+            <a
+              href="https://github.com/Mohammed-Hindi"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact-link"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  d="M12 0c-6.626 0-12 5.373-12 12
+                0 5.302 3.438 9.8 8.207 11.387
+                .599.111.793-.261.793-.577v-2.234
+                c-3.338.726-4.033-1.416-4.033-1.416
+                -.546-1.387-1.333-1.756-1.333-1.756
+                -1.089-.745.083-.729.083-.729
+                1.205.084 1.839 1.237 1.839 1.237
+                1.07 1.834 2.807 1.304 3.492.997
+                .107-.775.418-1.305.762-1.604
+                -2.665-.305-5.467-1.334-5.467-5.931
+                0-1.311.469-2.381 1.236-3.221
+                -.124-.303-.535-1.524.117-3.176
+                0 0 1.008-.322 3.301 1.23
+                .957-.266 1.983-.399 3.003-.404
+                1.02.005 2.047.138 3.006.404
+                2.291-1.552 3.297-1.23 3.297-1.23
+                .653 1.653.242 2.874.118 3.176
+                .77.84 1.235 1.911 1.235 3.221
+                0 4.609-2.807 5.624-5.479 5.921
+                .43.372.823 1.102.823 2.222v3.293
+                c0 .319.192.694.801.576
+                C20.565 21.797 24 17.299 24 12
+                c0-6.627-5.373-12-12-12z"
+                />
+              </svg>
+
+              <span> GitHub </span>
+            </a>
+
+            <!-- Instagram -->
+
+            <a
+              href="https://www.instagram.com/mohammed.h.hindi/"
+              class="contact-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram profile"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                aria-hidden="true"
+              >
+                <rect x="2.75" y="2.75" width="18.5" height="18.5" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.7" cy="6.5" r=".8" fill="currentColor" stroke="none" />
+              </svg>
+
+              <span> Instagram </span>
+            </a>
+
+            <!-- Email -->
+
+            <a
+              href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=moh5408415%40gmail.com"
+              class="contact-link"
+              id="email-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                aria-hidden="true"
+              >
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+
+                <path
+                  d="m22 7-8.97 5.7
+                a1.94 1.94 0 0 1-2.06 0L2 7"
+                />
+              </svg>
+
+              <span> Email </span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============================================
+       Project Case Study Modal
+       ============================================ -->
+
+    <div
+      id="project-modal"
+      class="modal-backdrop"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden="true"
+    >
+      <div class="modal-content glass-card">
+        <button
+          id="modal-close"
+          class="modal-close"
+          type="button"
+          aria-label="Close project"
+        >
+          &times;
+        </button>
+
+        <div class="modal-header">
+          <span id="modal-category" class="modal-category"></span>
+
+          <h2 id="modal-title"></h2>
+
+          <p id="modal-description" class="modal-description"></p>
+        </div>
+
+        <!-- Stack -->
+
+        <div class="modal-section">
+          <span class="modal-section-label"> Technology </span>
+
+          <div id="modal-stack" class="modal-stack"></div>
+        </div>
+
+        <!-- Case Study -->
+
+        <div id="modal-case-study" class="modal-case-study">
+          <div id="modal-problem" class="case-study-block"></div>
+
+          <div id="modal-solution" class="case-study-block"></div>
+
+          <div id="modal-architecture" class="case-study-block"></div>
+
+          <div id="modal-highlights" class="case-study-block"></div>
+        </div>
+
+        <!-- Links -->
+
+        <div class="modal-links">
+          <a
+            id="modal-github"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-outline"
+          >
+            GitHub
+          </a>
+
+          <a
+            id="modal-live"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary"
+          >
+            Live Demo →
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================
+       Noscript
+       ============================================ -->
+
+    <noscript>
+      <div
+        style="
+          padding: 2rem;
+          text-align: center;
+          font-family: sans-serif;
+          color: #e0e0e0;
+          background: #050608;
+          min-height: 100vh;
+        "
+      >
+        <h1>Mohammed El-Hindi</h1>
+
+        <p>Full-Stack Developer — Laravel &amp; Vue.js</p>
+
+        <p>Please enable JavaScript to experience the interactive portfolio.</p>
+      </div>
+    </noscript>
+
+    <!-- ============================================
+       Import Map
+       ============================================ -->
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+          "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.4/index.js"
+        }
+      }
+    </script>
+
+    <!-- Application -->
+    <script type="module" src="js/data.js"></script>
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
